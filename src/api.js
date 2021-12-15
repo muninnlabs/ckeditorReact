@@ -3,10 +3,11 @@ const bodyparser = require('body-parser');
 const path = require('path');
 const multer = require('multer');
 const cors = require('cors');
+const imgFolder = path.join(__dirname, './images/');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, '/images/'));
+        cb(null, imgFolder);
     },
     filename: function (req, file, cb) {
         cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
@@ -29,18 +30,22 @@ app.get('/', (req, res) => {
     });
 });
 
-const fieldsArray = [{ name: 'gallery', maxCount: '1' }];
+// const fieldsArray = [{ name: 'gallery', maxCount: '1' }];
 
 // app.post('/upload', upload.fields(fieldsArray), (req, res) => {
 app.post('/upload', upload.any(), (req, res) => {
-    console.log('Endpoint called')
+    console.log('Endpoint called');
     try {
-        console.log('response', req.files[0].filename);
-        const response = {
-            filepath: `./images/${req.files[0].filename}`
-        };
-        res.send(response.filepath);
+      const filepath = path.join(__dirname, './images/' + req.files[0].filename);
+      // const filepath = './images/' + req.files[0].filename;
+      console.log('response', filepath);
+
+        res.status(200).json({
+            uploaded: true,
+            url: filepath
+        });
     } catch (err) {
+        console.log(err);
         res.send(400);
     }
 });
