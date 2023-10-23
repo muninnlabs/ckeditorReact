@@ -3,6 +3,8 @@ import React from 'react';
 import Editor from 'ckeditor5-custom-build/build/ckeditor';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 
+
+
 const editorConfiguration = {
     toolbar: [
         // 'alignment:left',
@@ -12,7 +14,11 @@ const editorConfiguration = {
         'heading',
         'alignment',
         'blockQuote',
-        'bold',
+        'bold', 'italic', 'strikethrough', 'underline', 'subscript', 'superscript', '|',
+        '|',
+        'fontfamily',
+        'fontsize',
+        'fontColor', 'fontBackgroundColor', '|',
         '|',
         'selectAll',
         'undo',
@@ -20,13 +26,17 @@ const editorConfiguration = {
         '|',
         'indent',
         'outdent',
-        'italic',
         'link',
         'linkImage',
         'numberedList',
         'bulletedList',
         '|',
+        'todoList', 
+        'code', 'codeBlock', '|',
+        '|',
         'imageUpload',
+        'imageInsert',
+        'insertImage',
         'mediaEmbed',
         'removeFormat',
         'specialCharacters',
